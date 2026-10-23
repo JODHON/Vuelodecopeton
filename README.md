@@ -1,9 +1,8 @@
 # 🐦 Vuelo de Copetón — Ecotourism & Environmental Research Database
 
 <p align="center">
-  <img src="copeton.png" alt="Logo Copetón" width="220">
+  <img src="copeton.png" alt="Logo Copetón" width="230">
 </p>
-
 A relational database designed to structure information for ecotourism, fauna sighting logs, and environmental research project tracking.
 
 ---
