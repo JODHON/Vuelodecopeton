@@ -1,0 +1,99 @@
+-- ============================================
+-- ATRIBUTOS - RESTRICCIONES DE ATRIBUTOS
+-- ============================================
+
+-- USUARIO
+ALTER TABLE Usuarios MODIFY IdUsuario NUMBER(10) NOT NULL;
+ALTER TABLE Usuarios MODIFY Nombre VARCHAR2(100) NOT NULL;
+ALTER TABLE Usuarios MODIFY Email VARCHAR2(100) NOT NULL;
+ALTER TABLE Usuarios MODIFY TipoUsuario VARCHAR2(20) NOT NULL;
+ALTER TABLE Usuarios ADD CONSTRAINT chk_email_usuario CHECK (Email LIKE '%@%');
+
+-- PERSONA COMÚN
+ALTER TABLE PersonasComunes MODIFY IdUsuario NUMBER(10) NOT NULL;
+ALTER TABLE PersonasComunes MODIFY DocumentoIdentidad VARCHAR2(50) NOT NULL;
+
+-- ENTIDAD EDUCATIVA
+ALTER TABLE EntidadesEducativas MODIFY IdUsuario NUMBER(10) NOT NULL;
+ALTER TABLE EntidadesEducativas MODIFY Institucion VARCHAR2(30) NOT NULL;
+ALTER TABLE EntidadesEducativas MODIFY NombreInstitucion VARCHAR2(100) NOT NULL;
+
+-- ENTIDAD CORPORATIVA
+ALTER TABLE EntidadesCorporativas MODIFY IdUsuario NUMBER(10) NOT NULL;
+ALTER TABLE EntidadesCorporativas MODIFY RazonSocial VARCHAR2(100) NOT NULL;
+-- NIT formato NNN-NNNNNNNN-N = 14 chars (3 + guion + 8 + guion + 1)
+ALTER TABLE EntidadesCorporativas MODIFY NIT VARCHAR2(14) NOT NULL;
+ALTER TABLE EntidadesCorporativas
+ADD CONSTRAINT chk_nit_formato
+CHECK (NIT LIKE '___-________-_');
+
+-- PERSONA ACADÉMICA
+ALTER TABLE PersonasAcademicas MODIFY IdUsuario NUMBER(10) NOT NULL;
+ALTER TABLE PersonasAcademicas MODIFY Profesion VARCHAR2(50) NOT NULL;
+
+-- ADMINISTRADOR
+ALTER TABLE Administradores MODIFY IdUsuario NUMBER(10) NOT NULL;
+ALTER TABLE Administradores MODIFY Permisos VARCHAR2(500) NOT NULL;
+
+-- RESERVA
+ALTER TABLE Reservas MODIFY IdReserva NUMBER(10) NOT NULL;
+ALTER TABLE Reservas MODIFY IdUsuario NUMBER(10) NOT NULL;
+ALTER TABLE Reservas MODIFY Fecha DATE NOT NULL;
+ALTER TABLE Reservas MODIFY Personas NUMBER(3) NOT NULL;
+ALTER TABLE Reservas MODIFY Estado VARCHAR2(20) NOT NULL;
+ALTER TABLE Reservas ADD CONSTRAINT chk_estado_reserva CHECK (Estado IN ('Pendiente', 'Confirmada', 'Cancelada'));
+ALTER TABLE Reservas ADD CONSTRAINT chk_personas_reserva CHECK (Personas > 0);
+
+-- PAGO
+ALTER TABLE Pagos MODIFY IdPago NUMBER(10) NOT NULL;
+ALTER TABLE Pagos MODIFY IdReserva NUMBER(10) NOT NULL;
+ALTER TABLE Pagos MODIFY Monto NUMBER(12,2) NOT NULL;
+ALTER TABLE Pagos MODIFY FechaPago DATE NOT NULL;
+ALTER TABLE Pagos MODIFY Estado VARCHAR2(20) NOT NULL;
+ALTER TABLE Pagos ADD CONSTRAINT chk_monto_pago CHECK (Monto > 0);
+ALTER TABLE Pagos ADD CONSTRAINT chk_estado_pago CHECK (Estado IN ('Pendiente', 'Completado', 'Cancelado'));
+
+-- TOUR
+ALTER TABLE Tours MODIFY IdTour NUMBER(10) NOT NULL;
+ALTER TABLE Tours MODIFY Fecha DATE NOT NULL;
+ALTER TABLE Tours MODIFY Duracion VARCHAR2(5) NOT NULL;
+ALTER TABLE Tours MODIFY Cupo NUMBER(3) NOT NULL;
+ALTER TABLE Tours MODIFY Guia VARCHAR2(100) NOT NULL;
+ALTER TABLE Tours MODIFY Longitud NUMBER(10,2) NOT NULL;
+ALTER TABLE Tours ADD CONSTRAINT chk_cupo_tour CHECK (Cupo > 0);
+ALTER TABLE Tours ADD CONSTRAINT chk_longitud_tour CHECK (Longitud > 0);
+
+-- UBICACIÓN
+ALTER TABLE Ubicaciones MODIFY IdUbicacion NUMBER(10) NOT NULL;
+ALTER TABLE Ubicaciones MODIFY Nombre VARCHAR2(100) NOT NULL;
+
+-- ESPECIE
+ALTER TABLE Especies MODIFY IdEspecie NUMBER(10) NOT NULL;
+ALTER TABLE Especies MODIFY NombreComun VARCHAR2(100) NOT NULL;
+ALTER TABLE Especies MODIFY NombreCientifico VARCHAR2(100) NOT NULL;
+
+-- AVISTAMIENTO
+ALTER TABLE Avistamientos MODIFY IdAvistamiento NUMBER(10) NOT NULL;
+ALTER TABLE Avistamientos MODIFY IdEspecie NUMBER(10) NOT NULL;
+ALTER TABLE Avistamientos MODIFY Fecha DATE NOT NULL;
+ALTER TABLE Avistamientos MODIFY Cantidad NUMBER(5) NOT NULL;
+ALTER TABLE Avistamientos ADD CONSTRAINT chk_cantidad_avistamiento CHECK (Cantidad > 0);
+
+-- ASESORIA
+ALTER TABLE Asesorias MODIFY IdAsesoria NUMBER(10) NOT NULL;
+ALTER TABLE Asesorias MODIFY FechaInicio DATE NOT NULL;
+ALTER TABLE Asesorias MODIFY Estado VARCHAR2(20) NOT NULL;
+ALTER TABLE Asesorias ADD CONSTRAINT chk_estado_asesoria CHECK (Estado IN ('En curso', 'Finalizada', 'Cancelada'));
+
+-- REPORTE
+ALTER TABLE Reportes MODIFY IdReporte NUMBER(10) NOT NULL;
+ALTER TABLE Reportes MODIFY Fecha DATE NOT NULL;
+
+-- PROYECTOS INVESTIGACIÓN
+ALTER TABLE ProyectosInvestigacion MODIFY IdProyecto NUMBER(10) NOT NULL;
+ALTER TABLE ProyectosInvestigacion MODIFY Nombre VARCHAR2(100) NOT NULL;
+ALTER TABLE ProyectosInvestigacion MODIFY FechaInicio DATE NOT NULL;
+ALTER TABLE ProyectosInvestigacion MODIFY Estado VARCHAR2(20) NOT NULL;
+ALTER TABLE ProyectosInvestigacion ADD CONSTRAINT chk_estado_proyecto CHECK (Estado IN ('En curso', 'Finalizado', 'Cancelado'));
+
+COMMIT;
