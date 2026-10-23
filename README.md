@@ -1,20 +1,16 @@
-# 🐦 Copetón — Ecoturismo e Investigación
+# 🐦 Vuelo de Copetón — Ecotourism & Environmental Research Database
 
 <p align="center">
   <img src="copeton.png" alt="Logo Copetón" width="160">
 </p>
 
-Plataforma integral para la gestión de ecoturismo, registro de avistamientos de fauna y seguimiento a proyectos de investigación ambiental.
+A relational database designed to structure information for ecotourism, fauna sighting logs, and environmental research project tracking.
 
 ---
 
-### 🚀 Módulos Clave
+### 🚀 System Scope
 
 * **Ecoturismo & Tours:** Programación de rutas guiadas, control de cupos y reservas.
 * **Avistamientos:** Registro de fauna con ubicación geográfica, fechas y evidencias.
 * **Investigación:** Seguimiento a proyectos científicos, asesorías y reportes técnicos.
 * **Gestión de Perfiles:** Control de accesos para usuarios, investigadores y administradores.
-
----
-
-### 📊 Modelo de Datos
